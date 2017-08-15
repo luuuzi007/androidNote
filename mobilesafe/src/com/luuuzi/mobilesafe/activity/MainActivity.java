@@ -131,18 +131,10 @@ public class MainActivity extends Activity {
 				// 和之前用户保存的密码做比较
 				if (md5Password.equals(password)) {
 					// 进入下一个界面,如果用户之前设置了就直接进入设置完成界面
-					// 没有设置则进入setup1界面
-					if (spUtil.getBooean(mContext, ConstantUtil.SETUPOVER,
-							false)) {
-						Intent intent = new Intent(mContext,
-								SetupOverActivity.class);
-						startActivity(intent);
-					} else {
-
+					// 设置则进入setup1界面
 						Intent intent = new Intent(mContext,
 								Setup1Activity.class);
 						startActivity(intent);
-					}
 					// 进入界面后解散Dialog
 					dialog.dismiss();
 				} else {

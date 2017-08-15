@@ -77,7 +77,8 @@
             android:src="@drawable/setup1"/>
         <Button 
             android:id="@+id/bt_nextpage1"
-            style="@style/nextpageBt"/>
+            style="@style/nextpageBt"
+            android:onClick="nextPage1"/>
         	
     </RelativeLayout>
 

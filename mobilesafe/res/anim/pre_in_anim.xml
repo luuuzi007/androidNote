@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 上一页的入场动画 :100%p表示屏幕的大小,0表示屏幕左上角-->
+<translate
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromXDelta="-100%p" 
+    android:toXDelta="0"
+    android:duration="500">
+
+</translate>

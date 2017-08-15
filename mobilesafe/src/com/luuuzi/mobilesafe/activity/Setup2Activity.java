@@ -2,6 +2,7 @@ package com.luuuzi.mobilesafe.activity;
 
 import com.luuuzi.mobilesafe.R;
 import com.luuuzi.mobilesafe.util.ConstantUtil;
+import com.luuuzi.mobilesafe.util.ToastUtil;
 import com.luuuzi.mobilesafe.util.spUtil;
 import com.luuuzi.mobilesafe.view.SettingItemVeiw;
 
@@ -38,6 +39,7 @@ public class Setup2Activity extends Activity{
 	 * sim卡的绑定逻辑实现
 	 */
 	private void initUI() {
+		//没设置密码
 		//1.回显，获取上一次sim的序列号
 		String sim_bound = spUtil.getString(mContext, ConstantUtil.SIM_SIMSERIALNUMBER, "");
 		siv_bound = (SettingItemVeiw) findViewById(R.id.siv_bound);
@@ -69,7 +71,6 @@ public class Setup2Activity extends Activity{
 				}else{
 					//删除sim卡序列号
 					spUtil.removeNode(mContext, ConstantUtil.SIM_SIMSERIALNUMBER);
-					
 				}
 			}
 		});
@@ -82,14 +83,23 @@ public class Setup2Activity extends Activity{
 		Intent intent = new Intent(mContext, Setup1Activity.class);
 		startActivity(intent);
 		finish();
+		//为Activity之间的跳转设置动画
+		overridePendingTransition(R.anim.pre_in_anim, R.anim.pre_out_anim);
 	}
 	/**
 	 * 下一页按钮点击事件
 	 * @param view
 	 */
 	public void nextPage(View view){
-		Intent intent = new Intent(mContext, Setup3Activity.class);
-		startActivity(intent);
-		finish();
+		String sim_seriaNumber = spUtil.getString(mContext, ConstantUtil.SIM_SIMSERIALNUMBER, "");
+		if(!TextUtils.isEmpty(sim_seriaNumber)){
+			
+			Intent intent = new Intent(mContext, Setup3Activity.class);
+			startActivity(intent);
+			finish();
+			overridePendingTransition(R.anim.next_in_anim, R.anim.next_out_anim);
+		}else{
+			ToastUtil.show(mContext, "请绑定sim卡");
+		}
 	}
 }

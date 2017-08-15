@@ -168,7 +168,8 @@ public class SplashActivity extends Activity {
 		initdata();
 		//初始化动画，加载Splash界面
 		initAnimation();
-
+		String str = spUtil.getString(mContext, ConstantUtil.SIM_SIMSERIALNUMBER, "");
+		Log.i(tag, "SplashActivity拿到的序列号:"+str);
 	}
 
 	/**

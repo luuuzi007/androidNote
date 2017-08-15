@@ -20,17 +20,27 @@
     <!-- XUtils权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 拿到序列号的权限 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 外部存储器的写入权限 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-     <!-- 外部存储器的读取权限 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 外部存储器的读取权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- 读取手机联系人权限 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- 写入联系人权限 -->
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <!-- 监听手机开机权限 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!--
     minsdkVersion：最小版本sdk
     targetsdkVersion：编译版本的sdk ，
     如果需要修改则取project.properties下；target=android-17修改数字
     -->
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <!-- 接收短信的权限 -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
 
     <application
         android:allowBackup="true"
@@ -58,19 +68,37 @@
         </activity>
         <activity android:name="com.luuuzi.mobilesafe.activity.MainActivity" >
         </activity>
-       <!-- 设置Activity -->
-        <activity android:name="com.luuuzi.mobilesafe.activity.SettingActivity"></activity>
-   		<!-- 设置界面1Activity -->
-   		<activity android:name="com.luuuzi.mobilesafe.activity.Setup1Activity"></activity>
-     	<!-- 设置界面2Activity -->
-     	<activity android:name="com.luuuzi.mobilesafe.activity.Setup2Activity"></activity>
-     	<!-- 设置界面3Activity -->
-     	<activity android:name="com.luuuzi.mobilesafe.activity.Setup3Activity"></activity>
-     	<!-- 设置界面4Activity -->
-     	<activity android:name="com.luuuzi.mobilesafe.activity.Setup4Activity"></activity>
-     	<!-- 设置完成Activity -->
-     	<activity android:name="com.luuuzi.mobilesafe.activity.SetupOverActivity"></activity>
-     
-     </application>
+        <!-- 设置Activity -->
+        <activity android:name="com.luuuzi.mobilesafe.activity.SettingActivity" >
+        </activity>
+        <!-- 设置界面1Activity -->
+        <activity android:name="com.luuuzi.mobilesafe.activity.Setup1Activity" >
+        </activity>
+        <!-- 设置界面2Activity -->
+        <activity android:name="com.luuuzi.mobilesafe.activity.Setup2Activity" >
+        </activity>
+        <!-- 设置界面3Activity -->
+        <activity android:name="com.luuuzi.mobilesafe.activity.Setup3Activity" >
+        </activity>
+        <!-- 设置界面4Activity -->
+        <activity android:name="com.luuuzi.mobilesafe.activity.Setup4Activity" >
+        </activity>
+        <!-- 选择联系人Activity -->
+        <activity android:name="com.luuuzi.mobilesafe.activity.ContactActivity" >
+        </activity>
+        <!-- 注册广播接收者	开机广播 boot_completed -->
+		<receiver android:name="com.luuuzi.mobilesafe.receiver.BootReceiver">
+		    <intent-filter >
+		        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+		    </intent-filter>
+		</receiver>
+		<!-- 为了去关联系统短信的广播对应过滤条件，先将编译版本改为4.1.2 api16,关联好后在将api改回来
+			android.provider.Telephony.SMS_RECEIVED-->
+		<receiver android:name="com.luuuzi.mobilesafe.receiver.SmsBroadcastReceiver">
+		    <intent-filter >
+		        <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+		    </intent-filter>
+		</receiver>
+    </application>
 
 </manifest>
