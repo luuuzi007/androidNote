@@ -1,6 +1,9 @@
 package com.luuuzi.mobilesafe.activity;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -38,6 +41,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PermissionInfo;
+import android.content.res.AssetManager;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.view.Menu;
@@ -168,8 +172,70 @@ public class SplashActivity extends Activity {
 		initdata();
 		//初始化动画，加载Splash界面
 		initAnimation();
+		//初始化数据库
+		initDB();
 		String str = spUtil.getString(mContext, ConstantUtil.SIM_SIMSERIALNUMBER, "");
 		Log.i(tag, "SplashActivity拿到的序列号:"+str);
+	}
+
+	/**
+	 * 将项目assets文件下的数据库拷贝到应用的私有目录files文件下
+	 */
+	private void initDB() {
+		//拷贝目录
+		initAddressDB("address.db");
+		
+	}
+
+	/**
+	 * 将项目assets文件下的数据库拷贝到应用的私有目录files文件下
+	 * @param dbName	要copy的文件名，包括后缀
+	 */
+	private void initAddressDB(String dbName) {
+		InputStream inputStream=null;
+		FileOutputStream outputStream=null;
+		//1.拿到目标文件夹路径
+		//files文件夹路径
+		File files = getFilesDir();
+		//拿到cache文件夹路径
+		//getCacheDir();
+		//拿到sdcard的路径
+		//Environment.getExternalStorageDirectory().getAbsolutePath();
+		
+		File file = new File(files, dbName);
+		if (file.exists()) {
+			//如果该文件存在说明已经拷贝过了，则不用拷贝了,直接结束该方法
+			return;
+		}
+		try {
+			//1.输入流关联文件(拿到需要copy的文件输入流)
+			AssetManager assetManager = getAssets();
+			inputStream =assetManager.open(dbName);
+			
+			//2.输出流关联文件
+			outputStream = new FileOutputStream(file);
+			//3.将输入流的数据存储到byte数组中
+			byte[] b=new byte[1024];
+			while((inputStream.read(b, 0, b.length))!=-1){
+				//4.输出流将数组中的数据读取到文件中
+				outputStream.write(b);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			if(inputStream!=null && outputStream!=null){
+				try {
+					inputStream.close();
+					outputStream.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		
 	}
 
 	/**

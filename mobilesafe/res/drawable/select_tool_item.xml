@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!-- 自己定义一个xml文件，在里面定义color标签
+     <color name="background_gray">#ccc</color>
+    <color name="background_pink">#FFEFD5</color>
+    	@color是和标签对应，而不是和文件名对应
+     -->
+    <item android:state_pressed="true" android:drawable="@color/background_gray"></item>
+    <item android:drawable="@color/background_pink"></item>
+
+</selector>

@@ -71,6 +71,10 @@ public class MainActivity extends Activity {
 					// 弹出对话框提示输入密码
 					showDialog();
 					break;
+				case 7:
+					startActivity(new Intent(mContext, AToolActivity.class));
+					break;
+
 				case 8:
 					// 点击设置中心
 					Intent intent = new Intent();
@@ -87,10 +91,10 @@ public class MainActivity extends Activity {
 	 * 点击手机防盗按钮后弹出输入密码 //2种情况, 1.第一次进入应用，没有设置密码 2.用户已经设置过密码，直接提示用户输入密码，判断是否正确
 	 */
 	protected void showDialog() {
-		password = spUtil.getString(mContext,
-				ConstantUtil.MOBILESAFE_PASSWORD, null);
+		password = spUtil.getString(mContext, ConstantUtil.MOBILESAFE_PASSWORD,
+				null);
 
-		//Log.i(tag, "用户设置的密码=====：" + password);
+		// Log.i(tag, "用户设置的密码=====：" + password);
 		// 判断用户是否是第一次进入应用
 		if (TextUtils.isEmpty(password)) {
 			// 没有设置密码，即第一次进入
@@ -132,9 +136,8 @@ public class MainActivity extends Activity {
 				if (md5Password.equals(password)) {
 					// 进入下一个界面,如果用户之前设置了就直接进入设置完成界面
 					// 设置则进入setup1界面
-						Intent intent = new Intent(mContext,
-								Setup1Activity.class);
-						startActivity(intent);
+					Intent intent = new Intent(mContext, Setup1Activity.class);
+					startActivity(intent);
 					// 进入界面后解散Dialog
 					dialog.dismiss();
 				} else {
@@ -203,7 +206,8 @@ public class MainActivity extends Activity {
 								+ "mobilesafe");
 						Log.i(tag, "加盐后的密码===========" + md5Password);
 						// 保存密码
-						spUtil.putString(mContext, ConstantUtil.MOBILESAFE_PASSWORD,md5Password);
+						spUtil.putString(mContext,
+								ConstantUtil.MOBILESAFE_PASSWORD, md5Password);
 						Log.i(tag, "保存密码");
 
 						// 跳转过去后，要隐藏Dialog

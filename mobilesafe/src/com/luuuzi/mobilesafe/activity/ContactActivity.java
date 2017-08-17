@@ -82,7 +82,7 @@ public class ContactActivity extends Activity{
 						String contact_id = cursor.getString(0);
 						Log.i(tag, "联系人id:"+contact_id);
 						//4.根据用户唯一性的id(contact_id)查询data表和mimetype表生成的视图，
-						//通过唯一标识拿到data1(data表中的字段)和mimetype(mimetype表中的字段)
+						//通过唯一标识拿到data1(data表中的字段)和mimetype(mimetype表中的字段)去做判断
 						Cursor indexCursor = contentResolver.
 								query(Uri.parse("content://com.android.contacts/data"),
 								new String[]{"data1","mimetype"},

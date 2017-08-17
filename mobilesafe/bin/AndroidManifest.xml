@@ -41,6 +41,13 @@
     <uses-permission android:name="android.permission.SEND_SMS"/>
     <!-- 接收短信的权限 -->
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+       <!-- //获取准确GPS坐标的权限 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- //允许模拟器模拟位置坐标的权限 -->
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+    <!-- //获取粗略坐标的权限(网络定位时使用) -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    
 
     <application
         android:allowBackup="true"
@@ -86,6 +93,10 @@
         <!-- 选择联系人Activity -->
         <activity android:name="com.luuuzi.mobilesafe.activity.ContactActivity" >
         </activity>
+        <!--高级工具Activity  -->
+        <activity android:name="com.luuuzi.mobilesafe.activity.AToolActivity"></activity>
+        <!-- 号码归属地查询Activity -->
+        <activity android:name="com.luuuzi.mobilesafe.activity.QureyAddressActivity"></activity>
         <!-- 注册广播接收者	开机广播 boot_completed -->
 		<receiver android:name="com.luuuzi.mobilesafe.receiver.BootReceiver">
 		    <intent-filter >
@@ -99,6 +110,8 @@
 		        <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
 		    </intent-filter>
 		</receiver>
+		<!-- 服务接收到短信内容包含#*location*#发送定位，Service -->
+		<service android:name="com.luuuzi.mobilesafe.service.ReceiverSMSService"></service>
     </application>
 
 </manifest>

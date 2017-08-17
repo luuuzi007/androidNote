@@ -1,6 +1,7 @@
 package com.luuuzi.mobilesafe.receiver;
 
 import com.luuuzi.mobilesafe.R;
+import com.luuuzi.mobilesafe.service.ReceiverSMSService;
 import com.luuuzi.mobilesafe.util.ConstantUtil;
 import com.luuuzi.mobilesafe.util.spUtil;
 
@@ -41,8 +42,16 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 					MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.ylzs);
 					//设置无限循环播放
 					mediaPlayer.setLooping(true);
-					//启动
+					//启动la
 					mediaPlayer.start();
+					/**
+					 * 定位的短信
+					 */
+				}else if(smsBody.contains("#*location*#")){
+					//通过监听广播接收到短信,接收到location关键字时，开启服务获取经纬度
+					Intent intent2 = new Intent(context, ReceiverSMSService.class);
+					//开启服务
+					context.startService(intent2);
 				}
 			}
 		}
